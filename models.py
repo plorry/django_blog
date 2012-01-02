@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
-from andrewgardner.gallery.models import Gallery
-from andrewgardner.Calendar.models import Calendar
+from gallery.models import Gallery
+from calendar.models import Calendar
 
 class Blog_Site(models.Model):
 	title = models.CharField(max_length = 50)
