@@ -1,10 +1,10 @@
 # Create your views here.
-from andrewgardner.blog.models import Blog, Comment
-from andrewgardner.gallery.models import Gallery
-from andrewgardner.Calendar.models import Calendar
+from models import Blog, Comment
+from gallery.models import Gallery
+from calendar.models import Calendar
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from andrewgardner.blog.forms import Comment_Form
+from forms import Comment_Form
 import datetime
 from django.template import RequestContext
 
