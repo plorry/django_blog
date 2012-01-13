@@ -14,7 +14,7 @@ def blog_default(request):
 	today = datetime.date.today()
 	calendar_table = calendar.month_as_table(today.year, today.month)
 	blogs = Blog.objects.all().order_by('-creation_date')[0:5]
-	title = "Andrew Gardner's Blog"
+	title = "Blog Title"
 	response_dict.update({'blogs':blogs, 'title':title, 'calendar':calendar_table})
 	return render_to_response('blog_view.html',
 		response_dict,
