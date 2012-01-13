@@ -1,6 +1,6 @@
 from django.contrib import admin
-from andrewgardner.blog.models import Blog, Comment
-from andrewgardner.gallery.models import Gallery, Image
+from blog.models import Blog, Comment
+from gallery.models import Gallery, Image
 
 class BlogAdmin(admin.ModelAdmin):
 	list_display = ('title', 'body','creation_date')
