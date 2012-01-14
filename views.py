@@ -11,13 +11,14 @@ from django.template import RequestContext
 BLOG_TITLE = "blog title"
 blog_site = Blog_Site.objects.get(id=1)
 
-def blog_view(request, year='',month='',day=''):
+def blog_view(request, year=0,month=0,day=0):
 	response_dict = {}
 	today = datetime.date.today()
-	calendar_table = blog_site.month_as_table(today.year, today.month)
 	if not year: year = today.year
 	if not month: month = today.month
 	if not day: day = 0
+	calendar_table = blog_site.month_as_table(int(year), int(month))
+
 	if day == 0:
 		blogs = Blog.objects.filter(
 			creation_date__month = month,
@@ -34,21 +35,12 @@ def blog_view(request, year='',month='',day=''):
 	return render_to_response('blog_view.html',
 		response_dict,
 		context_instance=RequestContext(request))
-	
-
-def blog_default(request):
-	response_dict = {}
-	today = datetime.date.today()
-	calendar_table = blog_site.month_as_table(today.year, today.month)
-	blogs = Blog.objects.all().order_by('-creation_date')[0:5]
-	title = BLOG_TITLE
-	response_dict.update({'blogs':blogs, 'title':title, 'calendar':calendar_table})
-	return render_to_response('blog_view.html',
-		response_dict,
-		context_instance=RequestContext(request))
 
 def blog_single(request, blog_id):
 	response_dict = {}
+	today = datetime.date.today()
+	calendar_table = blog_site.month_as_table(today.year, today.month)
+	response_dict.update({'calendar':calendar_table})
 	comment = ''
 	blog = Blog.objects.get(id=blog_id)
 	title = blog.title
@@ -76,24 +68,3 @@ def blog_single(request, blog_id):
 	return render_to_response('blog_single.html',
 		response_dict,
 		context_instance=RequestContext(request))
-
-def month_view(request, year, month):
-	response_dict = {}
-	blogs = Blog.objects.filter(
-		creation_date__year = year,
-		creation_date__month = month)
-	title = BLOG_TITLE +" "+month
-	response_dict.update({ 'blogs':blogs, 'title':title })
-	return render_to_response('blog_view.html',
-		response_dict)
-		
-def day_view(request, year, month, day):
-	response_dict = {}
-	blogs = Blog.objects.filter(
-		creation_date__year = year,
-		creation_date__month = month,
-		creation_date__day = day)
-	title = BLOG_TITLE +" "+ month
-	response_dict.update({ 'blogs':blogs, 'title':title })
-	return render_to_response('blog_view.html',
-		response_dict)

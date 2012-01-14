@@ -13,14 +13,28 @@ class Blog_Site(models.Model):
 		days_in_month = calendar_functions.days_in_month(month, year)
 		first_of_month = datetime.date(year, month, 1)
 		buffer_days = first_of_month.isoweekday()
-		today = datetime.date.today()
 		if buffer_days == 7:
 			buffer_days = 0
-		month_html = ("<caption><em><a href=\"/blog/%d/%02d\">%s</a> \
-			| %s</em></caption>\n\
+		today = datetime.date.today()
+		next_year = year
+		last_year = year
+		last_month = month - 1
+		if last_month == 0:
+			last_month = 12
+			last_year -= 1
+		next_month = month + 1
+		if next_month == 13:
+			next_month = 1
+			next_year += 1
+
+		month_html = ("<caption>\
+			<a href = \"/blog/%d/%02d/\"> < </a>\
+			<em><a href=\"/blog/%d/%02d\">%s</a> | %s</em>\
+			<a href = \"/blog/%d/%02d/\"> > </a>\
+			</caption>\n\
 			<tr><th>Sun</th><th>Mon</th><th>Tue</th>\
 			<th>Wed</th><th>Thu</th><th>Fri</th>\
-			<th>Sat</th></tr>\n<tr>" % (year, month, month_name, year))
+			<th>Sat</th></tr>\n<tr>" % (last_year, last_month, year, month, month_name, year, next_year, next_month))
 		for day in range(0,buffer_days):
 			month_html += ("<td class = \"buffer\"></td>")
 		day_of_week = buffer_days
