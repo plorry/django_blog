@@ -1,7 +1,8 @@
 This is a blog application for use in Django projects.
-Presently it relies on the Calendar and Gallery applications I've also built, though this should be trivial to separate.
 The naming structure needs improvement.
 There are Blog_Site objects, which represent a collection of blog entries, called "Blog" objects (should be "Entry").
 Comments are also incorporated.
 When a single blog is being viewed, comments and a comment form are visible. Simple commenting is allowed, with user-submitted username and email (optional) as well as a timestamp for submission time. No complex sign-ins are required for use (and therefore, no identity verification possible).
 A blog may contain a single Gallery of Images.
+A blog_site object has a special method called "month_as_table" - given a year and a month, it will return html coding for the month as a table, with blog-entry days linking to that days' entries. There are also clickable buttons to scroll between months.
+Please see models.py for more info on the calendar table.
